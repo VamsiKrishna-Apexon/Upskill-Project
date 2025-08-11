@@ -1,10 +1,8 @@
 package com.apexon.upskill.registration.user.repository;
 
-import com.apexon.upskill.registration.user.entity.User;
+import com.apexon.upskill.registration.user.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {

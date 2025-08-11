@@ -1,42 +1,21 @@
 package com.apexon.upskill.registration.skills.dto;
 
+import lombok.Data;
+
+@Data
 public class SkillDTO {
 
+    private String skillName;
+    private int yearsOfExperience;
+    private String proficiency;
 
-        private String skillname;
-        private int yearsOfExperience;
-        private String proficiency;
-
-    public String getSkillname() {
-        return skillname;
-    }
-
-    public void setSkillname(String skillname) {
-        this.skillname = skillname;
-    }
-
-    public int getYearsOfExperience() {
-        return yearsOfExperience;
-    }
-
-    public void setYearsOfExperience(int yearsOfExperience) {
-        this.yearsOfExperience = yearsOfExperience;
-    }
-
-    public String getProficiency() {
-        return proficiency;
-    }
-
-    public SkillDTO(String skillname, int yearsOfExperience, String proficiency) {
-        this.skillname = skillname;
+    public SkillDTO(String skillName, int yearsOfExperience, String proficiency) {
+        this.skillName = skillName;
         this.yearsOfExperience = yearsOfExperience;
         this.proficiency = proficiency;
     }
 
-    public void setProficiency(String proficiency) {
-        this.proficiency = proficiency;
-    }
     public SkillDTO(){
-
     }
+
 }

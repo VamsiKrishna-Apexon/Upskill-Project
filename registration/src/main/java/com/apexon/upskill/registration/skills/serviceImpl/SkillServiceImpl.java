@@ -36,6 +36,9 @@ public class SkillServiceImpl {
 
     public List<SkillDTO> getSkillsByUserId(Long userId) {
         List<Skill> skills = repository.findByUserId(userId);
+        if (skills == null) {
+            return Collections.emptyList();
+        }
         return skills.stream()
                 .map(skill -> new SkillDTO(skill.getSkillname(), skill.getYearsOfExperience(), skill.getProficiency()))
                 .collect(Collectors.toList());

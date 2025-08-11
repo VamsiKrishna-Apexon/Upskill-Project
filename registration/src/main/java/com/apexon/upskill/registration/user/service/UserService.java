@@ -1,7 +1,7 @@
-package com.apexon.upskill.registration.skills.service;
+package com.apexon.upskill.registration.user.service;
 
-import com.apexon.upskill.registration.user.entity.User;
-import com.apexon.upskill.registration.user.enums.UserRole;
+import com.apexon.upskill.registration.user.model.User;
+import com.apexon.upskill.registration.enums.UserRole;
 import com.apexon.upskill.registration.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,5 +20,12 @@ public class UserService {
 
         return userRepository.save(user);
 
+    }
+
+    public User updateUser(User user, Long id) throws Exception {
+        if(userRepository.findById(id).isEmpty())
+            throw new Exception("User does not Exist");
+        user.setUserId(id);
+        return userRepository.save(user);
     }
 }

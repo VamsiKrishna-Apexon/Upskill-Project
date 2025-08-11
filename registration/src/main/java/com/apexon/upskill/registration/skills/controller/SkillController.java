@@ -11,22 +11,22 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/skills")
 public class SkillController {
-//    @Autowired
-//    Skill skills;
 
     @Autowired
     SkillService service;
-@PutMapping("/user/{id}/skills")
-public ResponseEntity<ServiceResponse> updateSkills(@PathVariable Long id, @RequestBody List<Skill> skills) {
 
-    ServiceResponse resp = service.updateSkill(id, skills);
-    return resp.isSuccess()
-            ? ResponseEntity.ok(resp)
-            : ResponseEntity.badRequest().body(resp);
-}
+    @PutMapping("/{id}")
+    public ResponseEntity<ServiceResponse> updateSkills(@PathVariable Long id, @RequestBody List<Skill> skills) {
 
-    @GetMapping("/user/skills/{id}")
+        ServiceResponse resp = service.updateSkill(id, skills);
+        return resp.isSuccess()
+                ? ResponseEntity.ok(resp)
+                : ResponseEntity.badRequest().body(resp);
+    }
+
+    @GetMapping("/{id}")
     public ResponseEntity<List<SkillDTO>> getUserSkills(@PathVariable Long id) {
         List<SkillDTO> skills = service.getSkillsByUserId(id);
         return skills.isEmpty()

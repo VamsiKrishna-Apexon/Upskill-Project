@@ -1,6 +1,8 @@
-package com.apexon.upskill.registration.user.entity;
+package com.apexon.upskill.registration.user.model;
 import com.apexon.upskill.registration.skills.model.Skill;
-import com.apexon.upskill.registration.user.enums.UserRole;
+import com.apexon.upskill.registration.enums.UserRole;
+import com.apexon.upskill.registration.userskill.model.UserSkill;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -36,11 +38,15 @@ public class User {
 
     private String designation;
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_skills",                    // join table name
-            joinColumns = @JoinColumn(name = "user_id"),    // FK to user
-            inverseJoinColumns = @JoinColumn(name = "skill_id") // FK to skill
-    )
-    private Set<Skill> skills = new HashSet<>();
+//    @ManyToMany
+//    @JoinTable(
+//            name = "user_skill",                    // join table name
+//            joinColumns = @JoinColumn(name = "user_id"),    // FK to user
+//            inverseJoinColumns = @JoinColumn(name = "skill_id") // FK to skill
+//    )
+//    private Set<Skill> skills = new HashSet<>();
+
+    @OneToMany(mappedBy = "user")
+    @JsonManagedReference
+    private Set<UserSkill> userSkills = new HashSet<>();
 }

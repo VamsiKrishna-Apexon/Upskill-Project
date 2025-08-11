@@ -1,20 +1,19 @@
 package com.apexon.upskill.registration.user.controller;
-import com.apexon.upskill.registration.skills.service.UserService;
-import com.apexon.upskill.registration.user.entity.User;
+import com.apexon.upskill.registration.user.service.UserService;
+import com.apexon.upskill.registration.user.model.User;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
     UserService userService;
 
-    @PostMapping("user/createUser")
+    @PostMapping("/createUser")
     public ResponseEntity<?> createUser(@Valid @RequestBody User user){
         try{
             User createdUser = userService.createUser(user);
@@ -23,7 +22,17 @@ public class UserController {
         catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
-
-
     }
+
+    @PutMapping("/updateUser/{id}")
+    public ResponseEntity<?> updateSkillProficiency(@Valid @RequestBody User user, @PathVariable Long id){
+        try{
+            User createdUser = userService.updateUser(user, id);
+            return ResponseEntity.ok(createdUser);
+        }
+        catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
 }

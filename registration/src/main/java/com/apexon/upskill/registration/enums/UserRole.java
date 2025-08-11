@@ -1,4 +1,4 @@
-package com.apexon.upskill.registration.user.enums;
+package com.apexon.upskill.registration.enums;
 
 public enum UserRole {
     ADMIN,
