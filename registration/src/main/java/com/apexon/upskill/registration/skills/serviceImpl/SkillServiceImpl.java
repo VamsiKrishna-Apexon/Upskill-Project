@@ -4,6 +4,7 @@ import com.apexon.upskill.registration.skills.dto.SkillDTO;
 import com.apexon.upskill.registration.skills.model.Skill;
 import com.apexon.upskill.registration.skills.repository.SkillRepository;
 import com.apexon.upskill.registration.skills.response.ServiceResponse;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,33 +14,46 @@ import java.util.stream.Collectors;
 @Service
 public class SkillServiceImpl {
 
-
     @Autowired
-    SkillRepository repository;
-    List<Skill> skills;
-    public ServiceResponse updateSkills(Long userId, List<Skill> newSkills) {
-        if (newSkills == null || newSkills.isEmpty()) {
-            return new ServiceResponse(false, "No skills provided");
+    SkillRepository repo;
+
+    public ServiceResponse addSkills(List<Skill> skills) {
+        try {
+            List<Skill> savedSkills = repo.saveAll(skills);
+            if (savedSkills.size() == skills.size()) {
+                return new ServiceResponse(true, "Skills added successfully");
+            } else {
+                return new ServiceResponse(false, "Some skills could not be added");
+            }
+        } catch (Exception e) {
+            return new ServiceResponse(false, "Error adding skills: " + e.getMessage());
         }
-
-        for (Skill s : newSkills) {
-            s.setUserId(userId);
-            System.out.println("Skill Name:"+s.getSkillname());
-        }
-
-        List<Skill> saved = repository.saveAll(newSkills);
-        // saveAll calls save() for each item under the hood :contentReference[oaicite:1]{index=1}
-
-        return new ServiceResponse(true,
-                String.format("%d skills successfully updated", saved.size()));
     }
 
-    public List<SkillDTO> getSkillsByUserId(Long userId) {
-        List<Skill> skills = repository.findByUserId(userId);
+    @Transactional
+    public ServiceResponse deleteSkillByName(String skillname) {
+        try {
+            boolean check = repo.existsBySkillname(skillname);
+
+
+            if (!check) {
+                return new ServiceResponse(false, "Skill with name '" + skillname + "' does not exist");
+            }else {
+                repo.deleteBySkillname(skillname);
+                return new ServiceResponse(true, "Skill deleted successfully");
+            }
+        } catch (Exception e) {
+            return new ServiceResponse(false, "Error deleting skill: " + e.getMessage());
+        }
+    }
+
+
+    public List<SkillDTO> getAllSkills() {
+        List<Skill> skills = repo.findAll();
         return skills.stream()
-                .map(skill -> new SkillDTO(skill.getSkillname(), skill.getYearsOfExperience(), skill.getProficiency()))
+                .map(skill -> new SkillDTO(skill.getId(), skill.getSkillname()))
                 .collect(Collectors.toList());
     }
-
     }
+
 
