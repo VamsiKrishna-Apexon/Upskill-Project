@@ -8,18 +8,6 @@ public class Skill {
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
         private String skillname;
-        private int yearsOfExperience;
-
-    public String getProficiency() {
-        return proficiency;
-    }
-
-    public void setProficiency(String proficiency) {
-        this.proficiency = proficiency;
-    }
-
-    private String proficiency;
-        private Long userId;
 
         // Getters and Setters
 
@@ -39,28 +27,12 @@ public class Skill {
         this.skillname = skillname;
     }
 
-    public int getYearsOfExperience() {
-        return yearsOfExperience;
-    }
 
-    public void setYearsOfExperience(int yearsOfExperience) {
-        this.yearsOfExperience = yearsOfExperience;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
 
     public Skill(Long id, String skillname, int yearsOfExperience, Long userId, String proficiency) {
         this.id = id;
         this.skillname = skillname;
-        this.yearsOfExperience = yearsOfExperience;
-        this.userId = userId;
-        this.proficiency=proficiency;
+
     }
     public Skill(){
 
@@ -71,9 +43,6 @@ public class Skill {
         return "Skill{" +
                 "id=" + id +
                 ", name='" + skillname + '\'' +
-                ", yearsOfExperience=" + yearsOfExperience +
-                ", userId=" + userId +
-                ", proficiency=" + proficiency +
                 '}';
     }
 }

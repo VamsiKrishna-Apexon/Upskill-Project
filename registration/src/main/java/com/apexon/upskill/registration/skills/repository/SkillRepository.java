@@ -8,5 +8,10 @@ import java.util.List;
 
 @Repository
 public interface SkillRepository extends JpaRepository<Skill,Long> {
-    List<Skill> findByUserId(Long userId);
+
+    // Custom method to delete skill by skillname
+    void deleteBySkillname(String skillname);
+
+    // Optional: To check if skill with that name exists
+    boolean existsBySkillname(String skillname);
 }

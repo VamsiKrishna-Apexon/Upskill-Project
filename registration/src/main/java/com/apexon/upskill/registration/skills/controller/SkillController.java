@@ -11,27 +11,40 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/skills")
 public class SkillController {
 //    @Autowired
 //    Skill skills;
 
     @Autowired
     SkillService service;
-@PutMapping("/user/{id}/skills")
-public ResponseEntity<ServiceResponse> updateSkills(@PathVariable Long id, @RequestBody List<Skill> skills) {
+    @PutMapping
+    public ResponseEntity<ServiceResponse> addSkills(@RequestBody List<Skill> skills) {
+        ServiceResponse response = service.addSkill(skills);
+        if (response.isSuccess()) {
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
 
-    ServiceResponse resp = service.updateSkill(id, skills);
-    return resp.isSuccess()
-            ? ResponseEntity.ok(resp)
-            : ResponseEntity.badRequest().body(resp);
-}
+    @GetMapping
+    public ResponseEntity<List<SkillDTO>> getAllSkills() {
+        List<SkillDTO> skills = service.getSkills();
+        if (skills.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(skills);
+    }
 
-    @GetMapping("/user/skills/{id}")
-    public ResponseEntity<List<SkillDTO>> getUserSkills(@PathVariable Long id) {
-        List<SkillDTO> skills = service.getSkillsByUserId(id);
-        return skills.isEmpty()
-                ? ResponseEntity.noContent().build()
-                : ResponseEntity.ok(skills);
+    @DeleteMapping("/deleteSkill/{skillname}")
+    public ResponseEntity<ServiceResponse> deleteSkillByName(@PathVariable String skillname) {
+        ServiceResponse response = service.deleteSkill(skillname);
+        if (response.isSuccess()) {
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.badRequest().body(response);
+        }
     }
 
 }

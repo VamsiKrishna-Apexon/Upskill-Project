@@ -15,13 +15,15 @@ public class SkillService {
     @Autowired
     SkillServiceImpl impl;
 
-
-    public ServiceResponse updateSkill(Long id, List<Skill> skills){
-        return impl.updateSkills(id,skills);
+    public ServiceResponse addSkill(List<Skill> skills){
+        return impl.addSkills(skills);
+    }
+    public List<SkillDTO> getSkills(){
+        return impl.getAllSkills();
     }
 
-    public List<SkillDTO> getSkillsByUserId(Long userId){
-        return impl.getSkillsByUserId(userId);
+    public ServiceResponse deleteSkill(String skill){
+        return impl.deleteSkillByName(skill);
     }
 
 }

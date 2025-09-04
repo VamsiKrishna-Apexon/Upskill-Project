@@ -2,10 +2,12 @@ package com.apexon.upskill.registration.skills.dto;
 
 public class SkillDTO {
 
-
+        private Long id;
         private String skillname;
-        private int yearsOfExperience;
-        private String proficiency;
+
+    public Long getId() {
+        return id;
+    }
 
     public String getSkillname() {
         return skillname;
@@ -15,27 +17,18 @@ public class SkillDTO {
         this.skillname = skillname;
     }
 
-    public int getYearsOfExperience() {
-        return yearsOfExperience;
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setYearsOfExperience(int yearsOfExperience) {
-        this.yearsOfExperience = yearsOfExperience;
-    }
-
-    public String getProficiency() {
-        return proficiency;
-    }
-
-    public SkillDTO(String skillname, int yearsOfExperience, String proficiency) {
+    public SkillDTO(Long id,String skillname) {
         this.skillname = skillname;
-        this.yearsOfExperience = yearsOfExperience;
-        this.proficiency = proficiency;
+        this.id=id;
+
     }
 
-    public void setProficiency(String proficiency) {
-        this.proficiency = proficiency;
-    }
+
     public SkillDTO(){
 
     }
